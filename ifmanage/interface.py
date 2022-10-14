@@ -8,6 +8,10 @@ class Interface(object):
         self.config = kwargs
         self.config.setdefault("ifname", ifname)
         self.ifname = ifname
+        self.info = {}
+
+    def get_info(self) -> dict:
+        return {}
 
     def exist(self) -> bool:
         return os.path.exists(f'/sys/class/net/{self.ifname}')
@@ -59,8 +63,21 @@ class Interface(object):
         """
         pass
 
-    def set_mtu(self, mtu:int):
+    def set_mtu(self, mtu: int):
         """
         Set interface mtu value.
         """
         cmd(f"ip link set {self.ifname} mtu {mtu}")
+
+    def add_addr(self, addr: str):
+        """
+        Add IP(v6) address to interface. Address is only added if it is not
+        already assigned to that interface. Address format must be validated
+        and compressed/normalized before calling this function.
+        """
+
+        if addr.lower() == 'dhcp':
+            self.set_dhcp(True)
+        elif addr.lower() == 'dhcpv6':
+            self.set_dhcpv6(True)
+        # elif not
