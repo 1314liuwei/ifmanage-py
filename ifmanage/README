@@ -1,6 +1,0 @@
-# ifmanage-py
-
-This project is referenced from the vyos-1x project.
-Since the vyos-1x project is strongly related to the vyos routing system,
-it cannot be used alone.
-So I decided to implement a network management library according to the vyos-1x project
